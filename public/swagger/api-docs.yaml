@@ -3,4 +3,115 @@ info:
   title: REST API Laravel-shop
   version: "1.0.0"
 paths:
+# -------------------------------- AUTH --------------------------------
+  /api/auth/login:
+    post:
+      tags: [ 'Auth' ]
+      description: Authentication user
+      parameters:
+        - name: email
+          in: query
+          description: Email address
+          required: true
+          schema:
+            type: string
+            example: 'user@example.com'
+        - name: password
+          in: query
+          description: User password
+          required: true
+          schema:
+            type: string
+            example: some string
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                properties:
+                  access_token:
+                    type: string
+                    example: '1|aseefbb&3112sd,frkrr2'
+                  token_type:
+                    type: string
+                    example: 'Bearer'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
 
+  /api/auth/logout:
+    post:
+      tags: [ 'Auth' ]
+      description: Logout user
+      parameters:
+        - name: access_token
+          in: header
+          description: Users access_token
+          required: true
+          schema:
+            type: string
+            example: '1|aseefbb&3112sd,frkrr2'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: 'Вы вышли'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+
+
+# -------------------------------- COMPONENTS --------------------------------
+components:
+  responses:
+    NotFoundError:
+      description: 'Not found'
+      content:
+        application/json:
+          schema:
+            properties:
+              message:
+                type: string
+                example: 'Not found'
+
+    UnauthorizedError:
+      description: 'User is unauthorized'
+      content:
+        application/json:
+          schema:
+            properties:
+              message:
+                type: string
+                example: 'Unauthenticated.'
+
+    ValidationError:
+      description: 'Validation Error'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: 'Поле field обязательно для заполнения.'
+        errors:
+          schema:
+            type: object
+            properties:
+              field:
+                type: array
+                example: [ 'Поле field обязательно для заполнения.' ]
+
+    ForbiddenError:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            properties:
+              email:
+                type: string
+                example: 'Неверное имя пользователя или пароль.'
