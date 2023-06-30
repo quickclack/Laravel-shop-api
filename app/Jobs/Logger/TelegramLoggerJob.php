@@ -17,9 +17,9 @@ class TelegramLoggerJob implements ShouldQueue
     use InteractsWithQueue;
 
     public function __construct(
-        protected string $token,
-        protected string $text,
-        protected int $chatId,
+        protected readonly string $token,
+        protected readonly string $text,
+        protected readonly int $chatId,
     ) {
     }
 
