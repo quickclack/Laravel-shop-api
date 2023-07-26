@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api\Auth;
 
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Repositories\Contracts\UserRepository;
-use Illuminate\Support\Facades\Auth;
 
 final class AuthenticatedController extends Controller
 {
     public function __construct(
-        private readonly UserRepository $repository
+        private readonly UserRepository $repository,
     ) {
     }
 

@@ -8,11 +8,11 @@ use Tests\TestCase;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Queue;
 use App\Jobs\Logger\TelegramLoggerJob;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class TelegramLoggerTest extends TestCase
 {
-    use RefreshDatabase;
+    use DatabaseTransactions;
 
     public function test_it_sending_log_success(): void
     {

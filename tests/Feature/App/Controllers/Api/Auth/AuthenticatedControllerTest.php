@@ -6,12 +6,12 @@ namespace Tests\Feature\App\Controllers\Api\Auth;
 
 use Tests\TestCase;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\Http\Controllers\Api\Auth\AuthenticatedController;
 
 class AuthenticatedControllerTest extends TestCase
 {
-    use RefreshDatabase;
+    use DatabaseTransactions;
 
     private function createUser(): User
     {
@@ -39,7 +39,7 @@ class AuthenticatedControllerTest extends TestCase
         $this->assertAuthenticatedAs($user);
     }
 
-    public function test_it_logout_success()
+    public function test_it_logout_success(): void
     {
         $user = $this->createUser();
 
