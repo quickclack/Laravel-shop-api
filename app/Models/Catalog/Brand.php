@@ -2,6 +2,7 @@
 
 namespace App\Models\Catalog;
 
+use App\Support\Traits\Models\Slugable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -13,6 +14,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class Brand extends Model
 {
+    use Slugable;
     use HasFactory;
 
     protected $fillable = [

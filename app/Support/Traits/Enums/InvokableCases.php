@@ -9,14 +9,14 @@ use App\Exceptions\UndefinedCaseError;
 
 trait InvokableCases
 {
-    public function __invoke()
+    public function __invoke(): string|int
     {
         return $this instanceof BackedEnum
             ? $this->value
             : $this->name;
     }
 
-    public static function __callStatic(string $name, array $args)
+    public static function __callStatic(string $name, array $args): string|int
     {
         $cases = static::cases();
 
