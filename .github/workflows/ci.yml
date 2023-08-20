@@ -34,6 +34,9 @@ jobs:
       - name: Generate Application Key
         run: php artisan key:generate
 
+      - name: Seeding database
+        run: php artisan migrate
+
       - name: Execute Feature test via PHPUnit
         env:
           DB_PASSWORD: root
