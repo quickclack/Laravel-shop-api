@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property int id
  * @property string title
  * @property string slug
+ * @property int on_home_page
+ * @property int sorting
  */
 class Category extends Model
 {
@@ -19,5 +21,7 @@ class Category extends Model
     protected $fillable = [
         'title',
         'slug',
+        'on_home_page',
+        'sorting',
     ];
 }

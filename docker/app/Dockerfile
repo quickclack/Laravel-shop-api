@@ -1,18 +1,29 @@
 FROM php:8.1-fpm
 
-RUN apt-get update && apt-get install -y \
-      apt-utils \
-      libpq-dev \
-      libpng-dev \
-      libzip-dev \
-      zip unzip \
-      git && \
-      docker-php-ext-install pdo_mysql && \
-      docker-php-ext-install bcmath && \
-      docker-php-ext-install gd && \
-      docker-php-ext-install zip && \
-      apt-get clean && \
-      rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN apt-get update  && apt-get -y --no-install-recommends install \
+    jq \
+    git \
+    curl \
+    rsync \
+    apt-utils \
+    libpng-dev \
+    libzip-dev \
+    libxml2-dev \
+    openssh-server \
+    libmagickwand-dev \
+    librdkafka-dev
+
+RUN apt-get clean
+
+RUN docker-php-ext-configure gd \
+    --with-freetype=/usr/include/ \
+    --with-jpeg=/usr/include/ \
+    && docker-php-ext-configure intl \
+    && docker-php-ext-install soap gd zip mysqli pdo_mysql intl exif \
+    && docker-php-ext-enable intl \
+    && docker-php-ext-enable exif \
+    && docker-php-ext-install rdkafka \
+    && docker-php-ext-enable rdkafka
 
 COPY ./docker/app/php.ini /usr/local/etc/php/conf.d/php.ini
 
